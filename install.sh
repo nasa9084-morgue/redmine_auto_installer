@@ -27,6 +27,7 @@ done
 
 vecho()
 {
+    echo "vecho"
     if [ $verbose_flg -eq 1 ]
     then
         echo $1
