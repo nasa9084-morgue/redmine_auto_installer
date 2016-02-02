@@ -20,7 +20,7 @@ function vecho
 while getopts D:p:P:u:v OPT
 do
     case $OPT in
-        D) wpdir=$OPTARG
+        D) redminedir=$OPTARG
            ;;
         p) upass=$OPTARG
            ;;
