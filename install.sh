@@ -58,7 +58,7 @@ vecho "Database creation is done."
 vecho "Config redmine database..."
 cat <<EOF > config/database.yml
 production:
-  adapter: mysql2
+  adapter: mysql
   database: redmine_${uname}
   host: localhost
   usernae: ${uname}
