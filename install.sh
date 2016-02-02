@@ -10,7 +10,7 @@ upass="pass"
 password=""
 function vecho
 {
-    if [ verbose_flg -eq 1 ]
+    if [ $verbose_flg -eq 1 ]
     then
         echo $1
     fi
