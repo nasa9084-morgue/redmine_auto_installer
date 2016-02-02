@@ -8,14 +8,6 @@ redminedir="redmine"
 uname="user"
 upass="pass"
 password=""
-vecho()
-{
-    if [ $verbose_flg -eq 1 ]
-    then
-        echo $1
-    fi
-    return 0
-}
 
 while getopts D:p:P:u:v OPT
 do
@@ -32,6 +24,15 @@ do
            ;;
     esac
 done
+
+vecho()
+{
+    if [ $verbose_flg -eq 1 ]
+    then
+        echo $1
+    fi
+    return 0
+}
 
 vecho "Download Redmine..."
 wget "http://www.redmine.org/releases/redmine-${redmine_ver}.tar.gz" -O "${wwwroot}/redmine.tar.gz"
