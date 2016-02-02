@@ -47,7 +47,7 @@ fi
 vecho "Expand is successfully done."
 
 vecho "Rename redmine directory..."
-mv ${wwwroot}/redmine-${redmine_ver} ${wwwroot}/${redminedir}
+mv ${wwwroot}/redmine-${redmine_ver}/ ${wwwroot}/${redminedir}/
 vecho "Renamed."
 
 vecho "Create database..."
