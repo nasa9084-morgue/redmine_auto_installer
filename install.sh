@@ -8,7 +8,7 @@ redminedir="redmine"
 uname="user"
 upass="pass"
 password=""
-function vecho
+function vecho()
 {
     if [ $verbose_flg -eq 1 ]
     then
