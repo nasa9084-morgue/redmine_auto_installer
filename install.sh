@@ -20,14 +20,13 @@ do
            ;;
         u) uname=$OPTARG
            ;;
-        v) varbose_flg=1
+        v) verbose_flg=1
            ;;
     esac
 done
 
 vecho()
 {
-    echo "vecho"
     if [ $verbose_flg -eq 1 ]
     then
         echo $1
