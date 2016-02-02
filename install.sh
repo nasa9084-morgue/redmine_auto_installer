@@ -89,6 +89,5 @@ vecho "Sign in Default data..."
 RAILS_ENV=production rake redmine:load_default_data
 vecho "Default data is loaded."
 
-mkdir tmp public/plugin_assets
 chown -R ${uname}:${uname} files log tmp public/plugin_assets
 chmod -R 755 files log tmp public/plugin_assets
