@@ -64,7 +64,7 @@ if [ $state -eq 0 ]
 then
     vecho "Renamed."
     vecho "Create database..."
-    mysql -u root --password="${password}" -e "create database if not exists redmine_${uname};"
+    mysql -u root --password="${password}" -e "create database if not exists redmine_${uname} character set utf8;"
     state=$?
     if [ $state -eq 0 ]
     then
