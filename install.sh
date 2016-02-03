@@ -77,7 +77,8 @@ if [ $state -eq 0 ]
 then
     vecho "Database creation is done."
     vecho "Config redmine database..."
-    touch config/database.yml
+    vecho "Change directory into redmine..."
+    cd redmine
     cat <<EOF > config/database.yml
 production:
   adapter: mysql2
@@ -118,7 +119,6 @@ if [ $state -eq 0 ]
 then
     vecho "Key is generated."
     vecho "Create table..."
-    cd redmine
     RAILS_ENV=production rake db:migrate
     state=$?
 fi
