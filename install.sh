@@ -77,6 +77,7 @@ if [ $state -eq 0 ]
 then
     vecho "Database creation is done."
     vecho "Config redmine database..."
+    touch config/database.yml
     cat <<EOF > config/database.yml
 production:
   adapter: mysql2
