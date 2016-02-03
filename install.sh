@@ -133,6 +133,8 @@ then
     vecho "Table is created."
     vecho "Sign in Default data..."
     RAILS_ENV=production rake redmine:load_default_data
+    expect -re "Select language:"
+    send "ja\n"
     state=$?
 fi
 
