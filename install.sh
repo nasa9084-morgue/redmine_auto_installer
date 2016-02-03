@@ -5,8 +5,8 @@ wwwroot="/var/www/html"
 
 verbose_flg=0
 redminedir="redmine"
-uname="user"
-upass="pass"
+uname="root"
+upass=""
 password=""
 
 while getopts D:p:P:u:v OPT
@@ -85,7 +85,12 @@ production:
   database: redmine_${uname}
   host: localhost
   usernae: ${uname}
-  password: "${upass}"
+EOF
+    if [ $upass != "" ]
+    then
+        cat password: ${upass} >> config/database.yml
+    fi
+    cat <<EOF >> config/database.yml
   encoding: utf8
 EOF
     state=$?
