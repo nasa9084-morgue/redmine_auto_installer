@@ -103,7 +103,7 @@ if [ $? -eq 0 ]
 then
     vecho "Bundler is successfully installed."
     vecho "Resolve dependency with bundler..."
-    bundle install --without development test postgresql sqlite
+    bundle install --without development test postgresql sqlite --path vandor/bundle
 fi
 
 if [ $? -eq 0 ]
