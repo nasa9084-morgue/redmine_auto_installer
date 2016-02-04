@@ -10,7 +10,7 @@ upass=""
 password=""
 host="localhost"
 
-while getopts D:h:p:P:u:v OPT
+while getopts D:h:p:P:u:vV: OPT
 do
     case $OPT in
         D) redminedir=$OPTARG
@@ -24,6 +24,8 @@ do
         u) uname=$OPTARG
            ;;
         v) verbose_flg=1
+           ;;
+        V) redmine_ver=$OPTARG
            ;;
     esac
 done
