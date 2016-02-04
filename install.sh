@@ -36,44 +36,39 @@ vecho()
 
 vecho "Download Redmine..."
 wget "http://www.redmine.org/releases/redmine-${redmine_ver}.tar.gz" -O "${wwwroot}/redmine.tar.gz"
-state=$?
 
-if [ $state -eq 0 ]
+
+if [ $? -eq 0 ]
 then
     vecho "Redmine is downloaded."
     vecho "Expand downloaded tar.gz..."
     if [ $verbose_flg -eq 1 ]
     then
         tar zxvf "${wwwroot}/redmine.tar.gz" -C "${wwwroot}"
-        state=$?
     else
         tar zxf "${wwwroot}/redmine.tar.gz" -C "${wwwroot}"
-        state=$?
     fi
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Expand is successfully done."
     vecho "Rename redmine directory..."
     mv ${wwwroot}/redmine-${redmine_ver}/ ${wwwroot}/${redminedir}/
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Renamed."
     vecho "Create database..."
     mysql -u root --password="${password}" -e "create database if not exists redmine_${uname} character set utf8;"
-    state=$?
-    if [ $state -eq 0 ]
+    if [ $? -eq 0 ]
     then
         mysql -u root --password="${password}" -e "grant all on redmine_${uname}.* to '${uname}'@'localhost' identified by '${upass}';"
-        state=$?
     fi
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Database creation is done."
     vecho "Config redmine database..."
