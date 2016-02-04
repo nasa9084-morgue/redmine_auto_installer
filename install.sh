@@ -110,23 +110,21 @@ if [ $? -eq 0 ]
 then
     vecho "Dependency resolved."
     vecho "Generate session-store secret key..."
-    rake generate_secret_token
+    bundle exec rake generate_secret_token
 fi
 
 if [ $? -eq 0 ]
 then
     vecho "Key is generated."
     vecho "Create table..."
-    RAILS_ENV=production rake db:migrate
+    RAILS_ENV=production bundle exec rake db:migrate
 fi
 
 if [ $? -eq 0 ]
 then
     vecho "Table is created."
     vecho "Sign in Default data..."
-    RAILS_ENV=production rake redmine:load_default_data
-    expect -re "Select language:"
-    send "ja\n"
+    RAILS_ENV=production REDMINE_LANG=ja bundle exec rake redmine:load_default_data
 fi
 
 if [ $? -eq 0 ]
