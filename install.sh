@@ -6,14 +6,17 @@ wwwroot="/var/www/html"
 
 verbose_flg=0
 redminedir="redmine"
+accessdir="rm"
 uname="root"
 upass=""
 password=""
 host="localhost"
 
-while getopts D:h:p:P:u:vV: OPT
+while getopts a:D:h:p:P:u:vV: OPT
 do
     case $OPT in
+        a) accessdir=$OPTARG
+           ;;
         D) redminedir=$OPTARG
            ;;
         h) host=$OPTARG
@@ -176,8 +179,8 @@ then
     vecho "Apache setting is done."
 
     chown -R apache:apache ${wwwroot}/redmine
-    ln -s ${wwwroot}/redmine/public ${wwwroot}/redmine
-    cat "RackBaseURI /redmine" >> /etc/httpd/conf.d/redmine.conf
+    ln -s ${wwwroot}/redmine/public ${wwwroot}/${accessdir}
+    echo "RackBaseURI /${accessdir}" | sudo tee -a /etc/httpd/conf.d/redmine.conf
     service httpd configtest
 fi
 
