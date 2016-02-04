@@ -1,4 +1,5 @@
-#!/usr/bin/sh
+#!/bin/bash
+
 
 redmine_ver="3.2.0"
 wwwroot="/var/www/html"
@@ -30,8 +31,7 @@ do
     esac
 done
 
-vecho()
-{
+function vecho() {
     if [ $verbose_flg -eq 1 ]
     then
         echo $1
