@@ -152,7 +152,7 @@ then
     vecho "Passenger installation is done."
     vecho "Setting apache..."
     cat <<EOF > /etc/httpd/conf.d/redmine.conf
-<Directory "/var/www/http/redmine/public">
+<Directory "${wwwroot}/redmine/public">
 Require all granted
 </Directory>
 EOF
@@ -162,8 +162,8 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Apache setting is done."
-    chown -R apache:apache /var/www/html/redmine
-    ln -s /var/www/html/redmine/public /var/www/html/redmine
+    chown -R apache:apache ${wwwroot}/redmine
+    ln -s ${wwwroot}/redmine/public ${wwwroot}/redmine
     cat "RackBaseURI /redmine" >> /etc/httpd/conf.d/redmine.conf
     service httpd configtest
 fi
