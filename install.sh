@@ -171,7 +171,7 @@ then
 Require all granted
 </Directory>
 EOF
-    passenger-install-apache2-module --snippet >> /etc/httpd/conf.d/redmine.conf
+    bash -c "passenger-install-apache2-module --snippet >> /etc/httpd/conf.d/redmine.conf"
 fi
 
 if [ $? -eq 0 ]
@@ -180,7 +180,7 @@ then
 
     chown -R apache:apache ${wwwroot}/redmine
     ln -s ${wwwroot}/redmine/public ${wwwroot}/${accessdir}
-    echo "RackBaseURI /${accessdir}" | sudo tee -a /etc/httpd/conf.d/redmine.conf
+    bash -c "echo 'RackBaseURI /${accessdir}' >> -a /etc/httpd/conf.d/redmine.conf"
     service httpd configtest
 fi
 
