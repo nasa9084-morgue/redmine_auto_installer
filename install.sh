@@ -45,6 +45,7 @@ wget "http://www.redmine.org/releases/redmine-${redmine_ver}.tar.gz" -O "${wwwro
 if [ $? -eq 0 ]
 then
     vecho "Redmine is downloaded."
+
     vecho "Expand downloaded tar.gz..."
     if [ $verbose_flg -eq 1 ]
     then
@@ -57,6 +58,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Expand is successfully done."
+
     vecho "Rename redmine directory..."
     mv ${wwwroot}/redmine-${redmine_ver}/ ${wwwroot}/${redminedir}/
 fi
@@ -64,6 +66,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Renamed."
+
     vecho "Create database..."
     mysql -u root --password="${password}" -e "create database if not exists redmine_${uname} character set utf8;"
     if [ $? -eq 0 ]
@@ -75,6 +78,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Database creation is done."
+
     vecho "Config redmine database..."
     vecho "Change directory into redmine..."
     cd redmine
@@ -97,6 +101,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Configuration is done."
+
     vecho "Install bundler from gem..."
     gem install bundler
 fi
@@ -104,6 +109,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Bundler is successfully installed."
+
     vecho "Resolve dependency with bundler..."
     bundle install --without development test postgresql sqlite --path vandor/bundle
 fi
@@ -111,6 +117,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Dependency resolved."
+
     vecho "Generate session-store secret key..."
     bundle exec rake generate_secret_token
 fi
@@ -118,6 +125,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Key is generated."
+
     vecho "Create table..."
     RAILS_ENV=production bundle exec rake db:migrate
 fi
@@ -125,6 +133,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Table is created."
+
     vecho "Sign in Default data..."
     RAILS_ENV=production REDMINE_LANG=ja bundle exec rake redmine:load_default_data
 fi
@@ -132,6 +141,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Default data is loaded."
+
     chown -R ${uname}:${uname} files log tmp public/plugin_assets
     if [ $? -eq 0 ]
     then
@@ -142,6 +152,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Redmine Installation is done."
+
     vecho "Install Passenger..."
     gem install passenger --no-rdoc --no-ri
     passenger-install-apache2-module --auto
@@ -150,6 +161,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Passenger installation is done."
+
     vecho "Setting apache..."
     cat <<EOF > /etc/httpd/conf.d/redmine.conf
 <Directory "${wwwroot}/redmine/public">
@@ -162,6 +174,7 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Apache setting is done."
+
     chown -R apache:apache ${wwwroot}/redmine
     ln -s ${wwwroot}/redmine/public ${wwwroot}/redmine
     cat "RackBaseURI /redmine" >> /etc/httpd/conf.d/redmine.conf
