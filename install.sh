@@ -8,11 +8,14 @@ redminedir="redmine"
 uname="root"
 upass=""
 password=""
+host="localhost"
 
-while getopts D:p:P:u:v OPT
+while getopts D:h:p:P:u:v OPT
 do
     case $OPT in
         D) redminedir=$OPTARG
+           ;;
+        h) host=$OPTARG
            ;;
         p) upass=$OPTARG
            ;;
@@ -78,7 +81,7 @@ then
 production:
   adapter: mysql2
   database: redmine_${uname}
-  host: localhost
+  host: ${host}
   usernae: ${uname}
 EOF
     if [ $upass != "" ]
