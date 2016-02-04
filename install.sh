@@ -40,7 +40,6 @@ vecho()
 vecho "Download Redmine..."
 wget "http://www.redmine.org/releases/redmine-${redmine_ver}.tar.gz" -O "${wwwroot}/redmine.tar.gz"
 
-
 if [ $? -eq 0 ]
 then
     vecho "Redmine is downloaded."
@@ -91,73 +90,64 @@ EOF
     cat <<EOF >> config/database.yml
   encoding: utf8
 EOF
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Configuration is done."
     vecho "Install bundler from gem..."
     gem install bundler
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Bundler is successfully installed."
     vecho "Resolve dependency with bundler..."
     bundle install --without development test postgresql sqlite
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Dependency resolved."
     vecho "Generate session-store secret key..."
     rake generate_secret_token
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Key is generated."
     vecho "Create table..."
     RAILS_ENV=production rake db:migrate
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Table is created."
     vecho "Sign in Default data..."
     RAILS_ENV=production rake redmine:load_default_data
     expect -re "Select language:"
     send "ja\n"
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Default data is loaded."
     chown -R ${uname}:${uname} files log tmp public/plugin_assets
-    state=$?
-    if [ $state -eq 0 ]
+    if [ $? -eq 0 ]
     then
         chmod -R 755 files log tmp public/plugin_assets
-        state=$?
     fi
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Redmine Installation is done."
     vecho "Install Passenger..."
     gem install passenger --no-rdoc --no-ri
     passenger-install-apache2-module --auto
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Passenger installation is done."
     vecho "Setting apache..."
@@ -169,17 +159,16 @@ EOF
     passenger-install-apache2-module --snippet >> /etc/httpd/conf.d/redmine.conf
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     vecho "Apache setting is done."
     chown -R apache:apache /etc/www/http/redmine
     ln -s /var/etc/www/http/redmine/public /ver/www/html/redmine
     cat "RackBaseURI /redmine" >> /etc/httpd/conf.d/redmine.conf
     service httpd configtest
-    state=$?
 fi
 
-if [ $state -eq 0 ]
+if [ $? -eq 0 ]
 then
     service httpd graceful
 fi
