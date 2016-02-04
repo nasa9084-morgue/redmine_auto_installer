@@ -92,7 +92,7 @@ production:
   host: ${host}
   usernae: ${uname}
 EOF
-    if [ $upass != "" ]
+    if [ ! $upass == "" ]
     then
         cat password: ${upass} >> config/database.yml
     fi
