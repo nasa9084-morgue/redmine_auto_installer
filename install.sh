@@ -160,8 +160,8 @@ fi
 if [ $? -eq 0 ]
 then
     vecho "Apache setting is done."
-    chown -R apache:apache /etc/www/http/redmine
-    ln -s /var/etc/www/http/redmine/public /ver/www/html/redmine
+    chown -R apache:apache /var/www/html/redmine
+    ln -s /var/www/html/redmine/public /var/www/html/redmine
     cat "RackBaseURI /redmine" >> /etc/httpd/conf.d/redmine.conf
     service httpd configtest
 fi
