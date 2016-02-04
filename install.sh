@@ -149,3 +149,39 @@ then
         state=$?
     fi
 fi
+
+if [ $state -eq 0 ]
+then
+    vecho "Redmine Installation is done."
+    vecho "Install Passenger..."
+    gem install passenger --no-rdoc --no-ri
+    passenger-install-apache2-module --auto
+    state=$?
+fi
+
+if [ $state -eq 0 ]
+then
+    vecho "Passenger installation is done."
+    vecho "Setting apache..."
+    cat <<EOF > /etc/httpd/conf.d/redmine.conf
+<Directory "/var/www/http/redmine/public">
+Require all granted
+</Directory>
+EOF
+    passenger-install-apache2-module --snippet >> /etc/httpd/conf.d/redmine.conf
+fi
+
+if [ $state -eq 0 ]
+then
+    vecho "Apache setting is done."
+    chown -R apache:apache /etc/www/http/redmine
+    ln -s /var/etc/www/http/redmine/public /ver/www/html/redmine
+    cat "RackBaseURI /redmine" >> /etc/httpd/conf.d/redmine.conf
+    service httpd configtest
+    state=$?
+fi
+
+if [ $state -eq 0 ]
+then
+    service httpd graceful
+fi
