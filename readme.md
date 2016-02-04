@@ -1,13 +1,24 @@
 # Redmine auto installer
-## requirements
-+ Ruby 1.9
-+ ImageMagick Development
-  + (in CentOS, "ImageMagick-devel")
-+ MySQL Development
-  + (in CentOS, "MySQL-devel")
-+ Curl Development headers
-  + (in CentOS, "curl-devel")
-+ Apache 2 Development headers
-  + (in CentOS, "httpd-devel")
-+ Apache Portable Runtime Utility Development headers
-  + (in CentOS, "apr-devel, apr-util-devel")
+## Requirements
++ Ruby 1.9 or later
++ ImageMagick
++ MySQL
++ Curl
++ Apache 2
++ Apache Portable Runtime Utility
+
+### Requirements Packages for CentOS 7.1
++ Development Tools Group
++ openssl-devel
++ readline-devel
++ zlib-devel
++ curl-devel
++ libyaml-devel
++ libffi-devel
++ mysql-server
++ mysql-devel
++ httpd
++ httpd-devel
++ ImageMagick
++ ImageMagick-devel
++ ipa-pgothic-fonts
