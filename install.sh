@@ -15,21 +15,21 @@ host="localhost"
 while getopts a:D:h:p:P:u:vV: OPT
 do
     case $OPT in
-        a) accessdir=$OPTARG
+        a) accessdir="$OPTARG"
            ;;
-        D) redminedir=$OPTARG
+        D) redminedir="$OPTARG"
            ;;
-        h) host=$OPTARG
+        h) host="$OPTARG"
            ;;
-        p) upass=$OPTARG
+        p) upass="$OPTARG"
            ;;
-        P) password=$OPTARG
+        P) password="$OPTARG"
            ;;
-        u) uname=$OPTARG
+        u) uname="$OPTARG"
            ;;
         v) verbose_flg=1
            ;;
-        V) redmine_ver=$OPTARG
+        V) redmine_ver="$OPTARG"
            ;;
     esac
 done
